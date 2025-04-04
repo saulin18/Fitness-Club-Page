@@ -86,4 +86,27 @@ class WorkoutPlanViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(response)
 
-        return Response(serializer.data, status.HTTP_201_CREATED)
+        return Response(serializer.data, status.HTTP_200_OK)
+
+    def partial_update(self, request: Request, **kwargs: dict[str, Any]) -> Response:
+        data = request.data
+
+        try:
+            pk = int(kwargs["pk"])  # type: ignore[]
+        except ValueError as error:
+            raise KwargIntException from error
+
+        # Serializer Validation
+        self.get_serializer(data=data).is_valid(raise_exception=True)
+
+        user = get_user_model().objects.get(pk=request.user.pk)
+
+        response = WorkoutPlanService.partial_update(
+            data,
+            user,
+            pk,
+        )
+
+        serializer = self.get_serializer(response)
+
+        return Response(serializer.data, status.HTTP_200_OK)

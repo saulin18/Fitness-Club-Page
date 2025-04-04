@@ -15,9 +15,9 @@ class NoStatusPlansException(APIException):
     default_code = "no_plans_status"
 
 
-class PlanDoesnExistException(APIException):
+class PlanDoesntExistException(APIException):
     status_code = status.HTTP_404_NOT_FOUND
-    default_detail = "No workout plans with this status"
+    default_detail = "This workout plan doesn't exist"
     default_code = "no_plans_status"
 
 

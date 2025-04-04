@@ -7,7 +7,10 @@ requires-python = ">=3.11"
 dependencies = [
     "django>=5.1.6",
     "djangorestframework>=3.15.2",
-    "djangorestframework-simplejwt[blacklist]>=5.4.0",
+    "djangorestframework-simplejwt>=5.4.0",
+    "drf-spectacular>=0.28.0",
+    "setuptools>=78.1.0",
+    "wheel>=0.45.1",
 ]
 
 [project.optional-dependencies]
@@ -22,8 +25,14 @@ types-stubs = [
 [dependency-groups]
 dev = [
     "ipython>=9.0.1",
+    "pytest-django>=4.10.0",
     "ruff>=0.9.7",
 ]
 
 [tool.ruff.lint]
 exclude = [".venv"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "workout_tracker.settings"
+python_files = ["test_*.py"]
+addopts = "--verbose -rP --log-cli-level=INFO"
